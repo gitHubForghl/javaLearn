@@ -1,0 +1,40 @@
+#端口
+server:
+  port: 8888
+#spring的配置
+spring:
+  #数据源的配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql:///bjsxt?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
+    password: 150mysql666
+    #注入数据源的类型   默认的为HikariDataSource
+    druid:
+      max-active: 20
+      min-idle: 5
+      validation-query: select x
+      initial-size: 3
+      max-wait: 5000
+      stat-view-servlet:
+        #        login-username: root
+        #        login-password: 123456
+        allow:
+        deny:
+        url-pattern: /druid/*
+        enabled: true  #启用数据源监控
+    type: com.alibaba.druid.pool.DruidDataSource
+#        mybatisPlus conf
+mybatis-plus:
+  #classpath:mybatis/*.xml
+  mapper-locations: classpath:mapperxml/*.xml
+  global-config:
+    db-config:
+      logic-delete-field: deletedInd
+      logic-delete-value: 0
+      logic-not-delete-value: 1
+      select-strategy: not_empty
+    banner: false
+  configuration:
+    jdbc-type-for-null: null
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

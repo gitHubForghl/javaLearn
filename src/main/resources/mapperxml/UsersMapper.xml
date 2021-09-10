@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ghl.run.base.mapper.UsersMapper">
+    <resultMap id="BaseResultMap" type="cn.ghl.run.base.pojo.Users">
+        <!--@mbg.generated-->
+        <!--@Table users-->
+        <id column="userid" jdbcType="INTEGER" property="userid"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="usersex" jdbcType="VARCHAR" property="usersex"/>
+        <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
+        <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime"/>
+        <result column="deleted_ind" jdbcType="TINYINT" property="deletedInd"/>
+        <result column="vaild_ind" jdbcType="TINYINT" property="vaildInd"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        userid, username, usersex, created_time, updated_time, deleted_ind, vaild_ind
+    </sql>
+    <select id="selectUsersByCreatedTimeRange" resultMap="BaseResultMap" parameterType="java.lang.String">
+
+    SELECT * FROM bjsxt.users where created_time between #{start} and #{end}
+
+    </select>
+</mapper>
