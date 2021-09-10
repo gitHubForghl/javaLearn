@@ -35,7 +35,7 @@ class Test1 {
     public static void main(String[] args) {
         MyInter m = (j,k,l)->j.a(k, l);
         MyInter m2=Test1::a;
-        //第一个参数为方法目标，其余参数为参数
+        //第一个参数为方法目标，其余参数为参数,...
     }
 }
 @FunctionalInterface
