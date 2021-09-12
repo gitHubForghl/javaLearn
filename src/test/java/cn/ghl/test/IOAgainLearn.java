@@ -268,40 +268,48 @@ public class IOAgainLearn {
     }
 
     @Test
-    public void ObjectInputTest(){
-        ObjectOutputStream oos=null;
-        ObjectInputStream ois=null;
-        try{
-            oos=new ObjectOutputStream(new BufferedOutputStream(
-                    new FileOutputStream("D:\\MyApp\\temp\\dd.txt")
-            ));
-            ois=new ObjectInputStream(new BufferedInputStream(
-                    new FileInputStream("D:\\MyApp\\temp\\dd.txt")
-            ));
+    public void ObjectInputTest(){//要分开
+        try(
+            ObjectOutputStream oos=new ObjectOutputStream(new BufferedOutputStream(
+                    new FileOutputStream("D:\\MyApp\\temp\\e.txt")));
+            ObjectInputStream ois=new ObjectInputStream(new BufferedInputStream(
+                    new FileInputStream("D:\\MyApp\\temp\\e.txt")));
+        ){
             oos.writeInt(11);
             oos.writeChar('b');
-            oos.writeUTF("utf-8");
+            oos.writeUTF("utf8");
             oos.flush();
             System.out.println(ois.readInt());
             System.out.println(ois.readChar());
             System.out.println(ois.readUTF());
         }catch (Exception e){
             e.printStackTrace();
-        }finally {
-            if (ois!=null){
-                try {
-                    ois.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (oos!=null){
-                try {
-                    ois.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+        }
+    }
+
+    @Test
+    public void ObjectInputObjTest(){
+        try(
+                ObjectInputStream ois=new ObjectInputStream(new BufferedInputStream(
+                        new FileInputStream("D:\\MyApp\\temp\\e.txt")));
+                ){
+            Dog dog= (Dog) ois.readObject();
+            System.out.println(dog);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void ObjectOutputObjTest(){
+        try(
+                ObjectOutputStream oos=new ObjectOutputStream(new BufferedOutputStream(
+                        new FileOutputStream("D:\\MyApp\\temp\\e.txt")));
+        ){
+            oos.writeObject(new Dog("shaguo","红色"));
+            oos.flush();
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -333,5 +341,22 @@ public class IOAgainLearn {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+}
+class Dog implements Serializable{
+    private final String name;
+    private final String color;
+
+    public Dog(String name, String color) {
+        this.name = name;
+        this.color = color;
+    }
+
+    @Override
+    public String toString() {
+        return "Dog{" +
+                "name='" + name + '\'' +
+                ", color='" + color + '\'' +
+                '}';
     }
 }
