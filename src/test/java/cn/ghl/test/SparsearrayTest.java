@@ -4,15 +4,17 @@ import cn.ghl.run.TestApp;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.PrintWriter;
 
 @SpringBootTest(classes = TestApp.class)
 public class SparsearrayTest {
     @Test
-    public void sparsearrayTest(){
-        int[][] chess=new int[11][11];
-        chess[1][3]=1;
-        chess[2][4]=2;
+    public void sparsearrayTest() {
+        int[][] chess = new int[11][11];
+        chess[1][3] = 1;
+        chess[2][4] = 2;
 //        for (int i=0;i<chess.length;i++){
 //            for (int j=0;j<chess[0].length;j++){
 //                System.out.print(chess[i][j]+"\t");
@@ -27,39 +29,39 @@ public class SparsearrayTest {
 //        }
 
         //将二维数组保存到磁盘
-        FileWriter writer=null;
-        FileReader reader=null;
-        try {
-            writer= new FileWriter("D:\\MyApp\\temp\\a.txt");
-            for (int[] row: chess) {
-                for (int col : row) {
-                    writer.write(col+"\t");
+        try (//流的顺序
+             //这样写读不到数据
+                PrintWriter pw=new PrintWriter("D:\\MyApp\\temp\\a.txt");
+                BufferedReader br = new BufferedReader(new FileReader("D:\\MyApp\\temp\\a.txt"));
+        ) {
+            for (int[] row :
+                    chess) {
+                for (int col :
+                        row) {
+                    pw.print(col+"\t");
                 }
-                writer.write("\r\n");
+                pw.println();
             }
-            reader=new FileReader("D:\\MyApp\\temp\\a.txt");
-            BufferedReader buff = new BufferedReader(reader);
-            String temp;
-            while ((temp=buff.readLine())!=null){
-                System.out.println(temp+"---------------------------");
+            int[][] chess2 = new int[11][11];
+            String line;
+            int rows = 0;
+            while ((line = br.readLine()) != null) {
+                String[] strings = line.split("\t");
+                for (int i = 0; i < strings.length; i++) {
+                    chess2[rows][i] = Integer.parseInt(strings[i]);
+                }
+                rows++;
             }
+
+            for (int[] row : chess2) {
+                for (int col : row) {
+                    System.out.print(col + "\t");
+                }
+                System.out.println();
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
-        }finally {
-            if (writer!=null){
-                try {
-                    writer.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (reader!=null){
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
 
 

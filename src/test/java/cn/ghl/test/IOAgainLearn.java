@@ -152,10 +152,10 @@ public class IOAgainLearn {
         try (
                 FileReader reader = new FileReader("D:\\MyApp\\temp\\b.txt");
                 FileWriter writer = new FileWriter("D:\\MyApp\\temp\\bb.txt")) {
-            int temp=0;
-            char[] buff=new char[1024];
-            while ((temp=reader.read(buff))!=-1){
-                writer.write(buff,0,temp);
+            int temp = 0;
+            char[] buff = new char[1024];
+            while ((temp = reader.read(buff)) != -1) {
+                writer.write(buff, 0, temp);
             }
             writer.flush();
         } catch (Exception e) {
@@ -168,10 +168,10 @@ public class IOAgainLearn {
         try (
                 FileReader reader = new FileReader("D:\\MyApp\\temp\\b.txt");
                 FileWriter writer = new FileWriter("D:\\MyApp\\temp\\bb.txt");
-                BufferedReader br=new BufferedReader(reader);
-                BufferedWriter bw=new BufferedWriter(writer)) {
-            String  temp;
-            while ((temp=br.readLine())!=null){
+                BufferedReader br = new BufferedReader(reader);
+                BufferedWriter bw = new BufferedWriter(writer)) {
+            String temp;
+            while ((temp = br.readLine()) != null) {
                 System.out.println(temp);
                 bw.write(temp);
                 bw.newLine();
@@ -183,55 +183,55 @@ public class IOAgainLearn {
     }
 
     @Test
-    public void convertStream(){
-        try(InputStream input=System.in;){
+    public void convertStream() {
+        try (InputStream input = System.in;) {
             int temp;
-            while ((temp=input.read())!=-1){
+            while ((temp = input.read()) != -1) {
                 System.out.print((char) temp);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Test
-    public void printWriterTest(){
-        try(
-                BufferedReader bufferedReader=new BufferedReader(
+    public void printWriterTest() {
+        try (
+                BufferedReader bufferedReader = new BufferedReader(
                         new InputStreamReader(new FileInputStream("D:\\MyApp\\temp\\b.txt")));
-                PrintWriter pw=new PrintWriter("D:\\MyApp\\temp\\c.txt")
-                ){
+                PrintWriter pw = new PrintWriter("D:\\MyApp\\temp\\c.txt")
+        ) {
             String temp;
-            int i=1;
-            while ((temp=bufferedReader.readLine())!=null){
-                pw.println(i+"."+temp);
+            int i = 1;
+            while ((temp = bufferedReader.readLine()) != null) {
+                pw.println(i + "." + temp);
                 i++;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Test
-    public void ByteArrayInputTest(){
+    public void ByteArrayInputTest() {
         byte[] bytes = "abcdefg".getBytes();
-        try(
-                ByteArrayInputStream bis=new ByteArrayInputStream(bytes);
-                ){
+        try (
+                ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+        ) {
             int temp;
-            while ((temp=bis.read())!=-1){
+            while ((temp = bis.read()) != -1) {
                 System.out.println((char) temp);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Test
-    public void ByteArrayOutputTest(){
-        try(
-                ByteArrayOutputStream bos=new ByteArrayOutputStream();
-        ){
+    public void ByteArrayOutputTest() {
+        try (
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ) {
             bos.write('a');
             bos.write('b');
             bos.write('c');
@@ -240,21 +240,21 @@ public class IOAgainLearn {
                     byteArray) {
                 System.out.println((char) item);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Test
-    public void DataInputTest(){
-        try(//注意逻辑
-                DataOutputStream dos=new DataOutputStream(new BufferedOutputStream(
-                        new FileOutputStream("D:\\MyApp\\temp\\d.txt")
-                ));
-                DataInputStream dis=new DataInputStream(new BufferedInputStream(
-                        new FileInputStream("D:\\MyApp\\temp\\d.txt")
-                ))
-        ){
+    public void DataInputTest() {
+        try (//注意逻辑
+             DataOutputStream dos = new DataOutputStream(new BufferedOutputStream(
+                     new FileOutputStream("D:\\MyApp\\temp\\d.txt")
+             ));
+             DataInputStream dis = new DataInputStream(new BufferedInputStream(
+                     new FileInputStream("D:\\MyApp\\temp\\d.txt")
+             ))
+        ) {
             dos.writeInt(0);
             dos.writeChar('a');
             dos.writeUTF("utf");
@@ -262,19 +262,19 @@ public class IOAgainLearn {
             System.out.println(dis.readInt());
             System.out.println(dis.readChar());
             System.out.println(dis.readUTF());
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Test
-    public void ObjectInputTest(){//要分开
-        try(
-            ObjectOutputStream oos=new ObjectOutputStream(new BufferedOutputStream(
-                    new FileOutputStream("D:\\MyApp\\temp\\e.txt")));
-            ObjectInputStream ois=new ObjectInputStream(new BufferedInputStream(
-                    new FileInputStream("D:\\MyApp\\temp\\e.txt")));
-        ){
+    public void ObjectInputTest() {//要分开
+        try (
+                ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(
+                        new FileOutputStream("D:\\MyApp\\temp\\e.txt")));
+                ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(
+                        new FileInputStream("D:\\MyApp\\temp\\e.txt")));
+        ) {
             oos.writeInt(11);
             oos.writeChar('b');
             oos.writeUTF("utf8");
@@ -282,33 +282,33 @@ public class IOAgainLearn {
             System.out.println(ois.readInt());
             System.out.println(ois.readChar());
             System.out.println(ois.readUTF());
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Test
-    public void ObjectInputObjTest(){
-        try(
-                ObjectInputStream ois=new ObjectInputStream(new BufferedInputStream(
+    public void ObjectInputObjTest() {
+        try (
+                ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(
                         new FileInputStream("D:\\MyApp\\temp\\e.txt")));
-                ){
-            Dog dog= (Dog) ois.readObject();
+        ) {
+            Dog dog = (Dog) ois.readObject();
             System.out.println(dog);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Test
-    public void ObjectOutputObjTest(){
-        try(
-                ObjectOutputStream oos=new ObjectOutputStream(new BufferedOutputStream(
+    public void ObjectOutputObjTest() {
+        try (
+                ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(
                         new FileOutputStream("D:\\MyApp\\temp\\e.txt")));
-        ){
-            oos.writeObject(new Dog("shaguo","红色"));
+        ) {
+            oos.writeObject(new Dog("shaguo", "红色"));
             oos.flush();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -322,28 +322,29 @@ public class IOAgainLearn {
 //        }catch (Exception e){
 //            e.printStackTrace();
 //        }
-        try(InputStream input=System.in;
-        BufferedReader br=new BufferedReader(new InputStreamReader(input));
-        OutputStream output=System.out;
-        BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(output))){
-            while (true){
+        try (InputStream input = System.in;
+             BufferedReader br = new BufferedReader(new InputStreamReader(input));
+             OutputStream output = System.out;
+             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(output))) {
+            while (true) {
                 bw.write("请输入：");
                 bw.flush();
                 String line = br.readLine();
-                if("exit".equals(line)){
+                if ("exit".equals(line)) {
                     break;
                 }
-                bw.write("你输入的是："+line);
+                bw.write("你输入的是：" + line);
                 bw.newLine();
                 bw.flush();
 //                System.out.println(line);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 }
-class Dog implements Serializable{
+
+class Dog implements Serializable {
     private final String name;
     private final String color;
 
