@@ -32,4 +32,10 @@ public class CollectionTest {
         String[] split = statu.split("\\?");
         System.out.println("split = " + Arrays.toString(split));
     }
+    @Test
+    public void charTest(){
+        for (char c=48;c<51;c++){
+            System.out.println(c);//0,1,2
+        }
+    }
 }
